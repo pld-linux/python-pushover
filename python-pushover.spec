@@ -1,3 +1,4 @@
+#
 # Conditional build:
 %bcond_with	tests	# do not perform "make test"
 %bcond_without	python2 # CPython 2.x module
@@ -55,10 +56,8 @@ service.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %if %{with python2}
 %py_install
-
 %py_postclean
 %endif
 
@@ -73,10 +72,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS.rst CHANGES.rst README.rst
-%{py_sitescriptdir}/%{module}.*
-%if "%{py_ver}" > "2.4"
+%{py_sitescriptdir}/%{module}.py[co]
 %{py_sitescriptdir}/python_%{module}-%{version}-py*.egg-info
-%endif
 %endif
 
 %if %{with python3}
@@ -84,7 +81,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS.rst CHANGES.rst README.rst
 %attr(755,root,root) %{_bindir}/pushover
-%{py3_sitescriptdir}/__pycache__/%{module}.*
-%{py3_sitescriptdir}/%{module}.*
+%{py3_sitescriptdir}/%{module}.py
+%{py3_sitescriptdir}/__pycache__/%{module}.*.pyc
 %{py3_sitescriptdir}/python_%{module}-%{version}-py*.egg-info
 %endif
