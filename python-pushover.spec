@@ -8,7 +8,7 @@
 Summary:	Bindings for the Pushover notification service
 Name:		python-%{module}
 Version:	0.2
-Release:	1
+Release:	2
 License:	GPL v3+
 Group:		Libraries/Python
 Source0:	https://github.com/Thibauth/python-pushover/archive/v%{version}.tar.gz
