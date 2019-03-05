@@ -7,13 +7,12 @@
 %define 	module	pushover
 Summary:	Bindings for the Pushover notification service
 Name:		python-%{module}
-Version:	0.2
-Release:	3
+Version:	0.4
+Release:	1
 License:	GPL v3+
 Group:		Libraries/Python
 Source0:	https://github.com/Thibauth/python-pushover/archive/v%{version}.tar.gz
-# Source0-md5:	8cb91ab69e6c58a2e831e35f2c092001
-Patch0:		poll.patch
+# Source0-md5:	306c1fea53917263f854cd63b17c7fa0
 URL:		https://github.com/Thibauth/python-pushover
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.713
@@ -43,7 +42,6 @@ service.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %if %{with python2}
