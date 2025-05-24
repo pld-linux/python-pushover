@@ -8,7 +8,7 @@
 Summary:	Bindings for the Pushover notification service
 Name:		python-%{module}
 Version:	0.4
-Release:	9
+Release:	10
 License:	GPL v3+
 Group:		Libraries/Python
 Source0:	https://github.com/Thibauth/python-pushover/archive/v%{version}.tar.gz
@@ -21,6 +21,7 @@ BuildRequires:	python-modules
 BuildRequires:	python-setuptools
 %endif
 %if %{with python3}
+BuildRequires:	python3-fissix
 BuildRequires:	python3-modules
 BuildRequires:	python3-setuptools
 %endif
@@ -43,13 +44,22 @@ service.
 %prep
 %setup -q
 
+%if %{with python3}
+sed -i -e 's#use_2to3=True,##g' setup.py
+install -d bsrc-3
+cp -a [^b]* bsrc-3
+%{__python3} -m fissix --write --nobackups bsrc-3
+%endif
+
 %build
 %if %{with python2}
 %py_build %{?with_tests:test}
 %endif
 
 %if %{with python3}
+cd bsrc-3
 %py3_build %{?with_tests:test}
+cd ..
 %endif
 
 %install
@@ -60,7 +70,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %if %{with python3}
+cd bsrc-3
 %py3_install
+cd ..
 %endif
 
 %clean
